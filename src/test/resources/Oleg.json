@@ -1,0 +1,15 @@
+{
+    "title": "Human",
+    "destiny": [
+        {
+            "name": "Oleg",
+            "AGE": 27,
+            "from": "Moscow"
+        }
+    ],
+    "hobbies": [
+        "Reading",
+        "Music",
+        "Car"
+    ]
+}

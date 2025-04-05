@@ -1,25 +1,19 @@
 import com.codeborne.pdftest.PDF;
 import com.codeborne.xlstest.XLS;
 import com.opencsv.CSVReader;
-import org.apache.commons.compress.archivers.zip.ZipFile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.InputStream;
+
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class Parsing {
+public class ParsingFromZip {
 
-    private ClassLoader cl = Parsing.class.getClassLoader();
-    String csvFileName = "example.csv";
-    String xlsxFileName = "easy.xlsx";
-    String pdfFileName = "junit-user-guide-5.12.1.pdf";
+    private ClassLoader cl = ParsingFromZip.class.getClassLoader();
 
     @Test
     void csvParsingFromZipFileTest() throws Exception {
@@ -70,22 +64,17 @@ public class Parsing {
             ZipEntry entry;
 
             while ((entry = zis.getNextEntry()) != null) {
-                if (entry.getName().endsWith(".xls"))
+                if (entry.getName().endsWith(".xlsx"))
                 {
                     XLS xls = new XLS (zis);
-                    Assertions.assertEquals("JUnit 5 User Guide", xls.name);
+                    String actualValue = xls.excel.getSheetAt(0).getRow(2).getCell(2).getStringCellValue();
+                    Assertions.assertTrue(actualValue.contains("Петрович"));
+                    String actualValueTwo = xls.excel.getSheetAt(0).getRow(2).getCell(1).getStringCellValue();
+                    Assertions.assertTrue(actualValueTwo.contains("Петр"));
+
                 }
             }
         }
     }
 }
-
-//if (entry.getName().equals(csvFileName)) {
-//  System.out.println("Найден CSV-файл: " + entry.getName());
-//if (entry.getName().equals(xlsxFileName)) {
-//    System.out.println("Найден XLSX-файл: " + entry.getName());
-//}
-//if (entry.getName().equals(pdfFileName)) {
-//    System.out.println("Найден PDF-файл: " + entry.getName());
-//}
 
