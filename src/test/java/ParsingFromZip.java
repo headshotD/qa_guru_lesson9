@@ -71,7 +71,6 @@ public class ParsingFromZip {
                     Assertions.assertTrue(actualValue.contains("Петрович"));
                     String actualValueTwo = xls.excel.getSheetAt(0).getRow(2).getCell(1).getStringCellValue();
                     Assertions.assertTrue(actualValueTwo.contains("Петр"));
-
                 }
             }
         }
