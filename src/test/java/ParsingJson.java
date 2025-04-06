@@ -1,28 +1,38 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
+import model.Destiny;
 import model.Human;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParsingJson {
-    ObjectMapper mapper = new ObjectMapper();
 
     @Test
     void JsonParsingTest() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("Oleg.json")) {
-            assertNotNull(is, "Файл Oleg.json не найден!");
+            assertNotNull(is, "File Oleg.json not found!");
 
-            ObjectMapper mapper = new ObjectMapper();
             Human human = mapper.readValue(is, Human.class);
-
             assertEquals("Human", human.getTitle());
-            assertEquals("Oleg", human.getDestiny());
-            assertEquals("Reading", human.getHobbies());
 
+            List<Destiny> destinyList = human.getDestiny();
+            assertNotNull(destinyList);
+            assertEquals(1, destinyList.size());
 
+            Destiny firstDestiny = destinyList.get(0);
+            assertEquals("Oleg", firstDestiny.getName());
+            assertEquals(27, firstDestiny.getAge());
+            assertEquals("Moscow", firstDestiny.getFrom());
+
+            List<String> hobbies = human.getHobbies();
+            assertEquals(Arrays.asList("Reading", "Music", "Car"), hobbies);
 
         }
     }

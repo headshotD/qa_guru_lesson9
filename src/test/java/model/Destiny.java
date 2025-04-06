@@ -1,10 +1,23 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Destiny {
     private String name;
-    private Integer age;
+    @JsonProperty("AGE")
+    private Integer AGE;
     private String from;
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getAge() {
+        return AGE;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
 }
