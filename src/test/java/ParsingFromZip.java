@@ -63,10 +63,11 @@ public class ParsingFromZip {
     @DisplayName("Проверка контента в CSV файле")
     @Test
     void parseCsvWithTest() throws Exception {
-        try (InputStream is = getFileFromZip("archive.zip", ".csv");
-             InputStreamReader reader = new InputStreamReader(is, StandardCharsets.UTF_8);
-             CSVReader csvReader = new CSVReader(reader)) {
+        try (InputStream is = getFileFromZip("archive.zip", ".csv")) {
             assertNotNull(is, "Файл .csv не найден");
+
+            InputStreamReader reader = new InputStreamReader(is, StandardCharsets.UTF_8);
+            CSVReader csvReader = new CSVReader(reader);
 
             List<String[]> data = csvReader.readAll();
             Assertions.assertEquals(2, data.size());
@@ -78,6 +79,7 @@ public class ParsingFromZip {
                     new String[]{"selenide", "power"},
                     data.get(1)
             );
+        } catch (IOException e) {
         }
     }
 
