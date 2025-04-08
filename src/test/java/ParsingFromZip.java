@@ -101,7 +101,7 @@ public class ParsingFromZip {
     @Test
     void csvParsingFromEmptyZipFileTest() throws Exception {
         try (InputStream is = getFileFromZip("pysto.zip", ".xlsx")) {
-            assertNull(is, "Файл .xlsx не должен быть в архиве");
+            assertNull(is, "Файл .csv не должен быть в архиве");
         }
     }
 }
